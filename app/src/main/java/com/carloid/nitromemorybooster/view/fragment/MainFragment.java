@@ -1,9 +1,14 @@
 package com.carloid.nitromemorybooster.view.fragment;
 
+import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
+import android.view.animation.LinearInterpolator;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,6 +27,12 @@ public class MainFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false);
+
+        ObjectAnimator progressAnim = ObjectAnimator.ofInt(binding.progressBar, "progress", 0, 43);
+        progressAnim.setDuration(1000);
+        progressAnim.setInterpolator(new AccelerateDecelerateInterpolator());
+        progressAnim.start();
+
         return binding.getRoot();
     }
 }
