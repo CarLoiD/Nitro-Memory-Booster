@@ -38,7 +38,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="100dp"
             android:progress="0"
-            android:scaleY="6"
+            android:progressDrawable="@drawable/rounded_progressbar"
+            android:scaleY="1.4"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

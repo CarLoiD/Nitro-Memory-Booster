@@ -3,10 +3,6 @@ package com.carloid.nitromemorybooster.view.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.transition.Explode;
-import android.transition.Fade;
-import android.transition.Slide;
-import android.view.Window;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
