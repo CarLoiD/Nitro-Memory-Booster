@@ -10,6 +10,8 @@ import androidx.databinding.DataBindingUtil;
 import com.carloid.nitromemorybooster.R;
 import com.carloid.nitromemorybooster.databinding.ActivitySplashBinding;
 
+import java.util.Objects;
+
 public class SplashActivity extends AppCompatActivity {
 
     private static final int SPLASH_DELAY = 2000;
@@ -22,7 +24,7 @@ public class SplashActivity extends AppCompatActivity {
         binding.setLifecycleOwner(this);
 
         getWindow().setNavigationBarColor(0x00);
-        getSupportActionBar().hide();
+        Objects.requireNonNull(getSupportActionBar()).hide();
 
         new Handler(getMainLooper()).postDelayed(this::gotoMainActivity, SPLASH_DELAY);
     }

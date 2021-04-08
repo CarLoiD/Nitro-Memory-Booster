@@ -30,11 +30,6 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    externalNativeBuild {
-        ndkBuild {
-            path file('jni/Android.mk')
-        }
-    }
 }
 
 dependencies {

@@ -46,34 +46,34 @@
 
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/txtUsable"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:layout_marginTop="40dp"
-            android:text="Memória utilizável: 108 GB"
+            android:text="Memória utilizável: "
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/progressBar" />
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/txtFree"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:layout_marginTop="8dp"
-            android:text="Memória livre: 58.4 GB"
+            android:text="Memória livre: "
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+            app:layout_constraintTop_toBottomOf="@+id/txtUsable" />
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/txtOSUsage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:layout_marginTop="8dp"
-            android:text="Utilizado pelo Sistema: 8.7 GB"
+            android:text="Utilizado pelo Sistema: "
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView4" />
+            app:layout_constraintTop_toBottomOf="@+id/txtFree" />
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -85,7 +85,7 @@
             android:layout_marginEnd="14dp"
             android:background="@drawable/rounded_layout"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView5">
+            app:layout_constraintTop_toBottomOf="@+id/txtOSUsage">
 
             <TextView
                 android:layout_width="wrap_content"

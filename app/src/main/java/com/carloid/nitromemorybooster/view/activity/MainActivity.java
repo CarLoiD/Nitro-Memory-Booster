@@ -13,10 +13,6 @@ import com.carloid.nitromemorybooster.view.fragment.MainFragment;
 
 public class MainActivity extends AppCompatActivity {
 
-    static {
-        System.loadLibrary("NitroMemoryBoosterJNI");
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
