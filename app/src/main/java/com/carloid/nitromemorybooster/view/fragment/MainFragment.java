@@ -4,15 +4,11 @@ import android.animation.ObjectAnimator;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.StatFs;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.DecelerateInterpolator;
-import android.view.animation.LinearInterpolator;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,14 +17,10 @@ import androidx.fragment.app.Fragment;
 
 import com.carloid.nitromemorybooster.R;
 import com.carloid.nitromemorybooster.databinding.FragmentMainBinding;
-import com.carloid.nitromemorybooster.util.ExtensionFileNameFilter;
 import com.carloid.nitromemorybooster.util.U;
 
-import java.io.File;
-import java.io.FilenameFilter;
 import java.util.Locale;
 import java.util.Objects;
-import java.util.Set;
 
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
@@ -48,6 +40,8 @@ public class MainFragment extends Fragment {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false);
         components();
+
+        U.listDirContents(Environment.getExternalStorageDirectory());
 
         return binding.getRoot();
     }
@@ -80,6 +74,10 @@ public class MainFragment extends Fragment {
         progressAnim.setDuration(1000);
         progressAnim.setInterpolator(new AccelerateDecelerateInterpolator());
         progressAnim.start();
+
+        binding.cleanBtn.setOnClickListener(v -> {
+            Log.d("TEST", "Click");
+        });
     }
 
     private float getUsableMemory() {
@@ -101,16 +99,15 @@ public class MainFragment extends Fragment {
         return U.measureFileTypeUsage(".png", ".bmp", ".jpg", ".jpeg", ".gif", ".webp");
     }
 
-
     private float getAudioFilesUsage() {
-        return 0.0f;
+        return U.measureFileTypeUsage(".wav", ".mp3", ".ogg", ".m4a", ".aac", ".flac", ".mid", ".midi");
     }
 
     private float getDocumentFilesUsage() {
-        return 0.0f;
+        return U.measureFileTypeUsage(".doc", ".docx", ".pdf", ".ppt", ".pptx");
     }
 
-    private float getApplicationFilesUsage() {
-        return 0.0f;
+    private float getVideoFilesUsage() {
+        return U.measureFileTypeUsage(".3gp", ".mp4", ".mkv", ".webm");
     }
 }

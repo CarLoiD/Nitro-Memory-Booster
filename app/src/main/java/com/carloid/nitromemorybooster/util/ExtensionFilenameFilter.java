@@ -4,11 +4,11 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.util.Set;
 
-public class ExtensionFileNameFilter implements FilenameFilter {
+public class ExtensionFilenameFilter implements FilenameFilter {
 
     private final Set<String> extensions;
 
-    public ExtensionFileNameFilter(Set<String> extensions) {
+    public ExtensionFilenameFilter(Set<String> extensions) {
         this.extensions = extensions;
     }
 
