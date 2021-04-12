@@ -1,5 +1,6 @@
 package com.carloid.nitromemorybooster.util;
 
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Environment;
 import android.util.Log;
@@ -33,20 +34,15 @@ public class U {
         return (float) bytes / gb;
     }
 
+    public static float bytesToMegaBytes(long bytes) {
+        int mb = (1024 * 1024);
+        return (float) bytes / mb;
+    }
+
     public static float measureFileTypeUsage(String... extensions) {
         // final String[] files = storageDir.list(new ExtensionFilenameFilter(U.makeHashSet(extensions)));
 
         return 0.0f;
-    }
-
-    public static void listDirContents(File dir) {
-        try {
-            Stream<Path> walk = Files.walk(Paths.get(dir.getPath()));
-            List<String> result = walk.filter(Files::isRegularFile)
-                    .map(Path::toString).collect(Collectors.toList());
-        } catch (Exception exception) {
-            exception.printStackTrace();
-        }
     }
 
     public static float getPathTotalSpace(String path) {
