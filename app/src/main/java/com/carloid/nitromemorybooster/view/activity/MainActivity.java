@@ -9,6 +9,7 @@ import android.os.Bundle;
 
 import com.carloid.nitromemorybooster.R;
 import com.carloid.nitromemorybooster.databinding.ActivityMainBinding;
+import com.carloid.nitromemorybooster.view.fragment.LoginFragment;
 import com.carloid.nitromemorybooster.view.fragment.MainFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -24,13 +25,27 @@ public class MainActivity extends AppCompatActivity {
         showMainFragment();
     }
 
+    @Override
+    public void onBackPressed() {
+
+        int count = getSupportFragmentManager().getBackStackEntryCount();
+
+        if (count == 0) {
+            super.onBackPressed();
+            //additional code
+        } else {
+            getSupportFragmentManager().popBackStack();
+        }
+
+    }
+
     private void showMainFragment() {
-        MainFragment mainFragment = new MainFragment();
+        LoginFragment loginFragment = new LoginFragment();
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
 
-        transaction.add(R.id.main_fragment_area, mainFragment);
+        transaction.add(R.id.main_fragment_area, loginFragment);
         transaction.commit();
     }
 }

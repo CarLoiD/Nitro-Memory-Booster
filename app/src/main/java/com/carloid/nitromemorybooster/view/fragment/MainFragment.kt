@@ -24,8 +24,7 @@ class MainFragment : Fragment() {
 
     private var binding: FragmentMainBinding? = null
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         requestPermissions(PERMISSION_LIST, PERMISSION_REQUEST)
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false)
@@ -34,8 +33,37 @@ class MainFragment : Fragment() {
         return binding!!.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        if (requestCode == PERMISSION_REQUEST) {
+            for (grantIterator in grantResults) {
+                if (grantIterator != PackageManager.PERMISSION_GRANTED) {
+                    Objects.requireNonNull(activity)!!.finish()
+                }
+            }
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    }
+
+    private fun components() {
+        val usable = usableMemory
+        val free = freeMemory
+        val percentage = (100.0f * (usable - free) / usable).toInt()
+
+        binding!!.txtUsable.append(String.format(Locale.getDefault(), "%.1f GB", usable))
+        binding!!.txtFree.append(String.format(Locale.getDefault(), "%.1f GB", free))
+        binding!!.txtOSUsage.append(String.format(Locale.getDefault(), "%.1f GB", systemMemoryUsage))
+
+        val percentStr = String.format(Locale.getDefault(), "%d", percentage) + "%"
+        binding!!.percentage.text = percentStr
+
+        val progressAnim = ObjectAnimator.ofInt(binding!!.progressBar, "progress", 0, percentage)
+        progressAnim.duration = 1000
+        progressAnim.interpolator = AccelerateDecelerateInterpolator()
+        progressAnim.start()
+
+        binding!!.cleanBtn.setOnClickListener {
+            Log.d("TEST", "Click")
+        }
 
         Handler(Looper.getMainLooper()).postDelayed({
             var externalDir = File(EXTERNAL_STORAGE_DIR)
@@ -75,39 +103,6 @@ class MainFragment : Fragment() {
                 binding!!.txtUsedAudios.text = String.format("%.1f GB", U.bytesToGigaBytes(size))
             }
         }, 500)
-    }
-
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
-        if (requestCode == PERMISSION_REQUEST) {
-            for (grantIterator in grantResults) {
-                if (grantIterator != PackageManager.PERMISSION_GRANTED) {
-                    Objects.requireNonNull(activity)!!.finish()
-                }
-            }
-        }
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-    }
-
-    private fun components() {
-        val usable = usableMemory
-        val free = freeMemory
-        val percentage = (100.0f * (usable - free) / usable).toInt()
-
-        binding!!.txtUsable.append(String.format(Locale.getDefault(), "%.1f GB", usable))
-        binding!!.txtFree.append(String.format(Locale.getDefault(), "%.1f GB", free))
-        binding!!.txtOSUsage.append(String.format(Locale.getDefault(), "%.1f GB", systemMemoryUsage))
-
-        val percentStr = String.format(Locale.getDefault(), "%d", percentage) + "%"
-        binding!!.percentage.text = percentStr
-
-        val progressAnim = ObjectAnimator.ofInt(binding!!.progressBar, "progress", 0, percentage)
-        progressAnim.duration = 1000
-        progressAnim.interpolator = AccelerateDecelerateInterpolator()
-        progressAnim.start()
-
-        binding!!.cleanBtn.setOnClickListener {
-            Log.d("TEST", "Click")
-        }
     }
 
     private val usableMemory: Float
