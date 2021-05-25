@@ -27,6 +27,8 @@ class LoginFragment : Fragment() {
     fun components() {
         manager = AccountManager(context)
 
+        gotoMainFragment()
+
         binding!!.btnLogin.setOnClickListener {
             manager?.let {
                 if (it.isUsernameAvailable(getUsername())) {

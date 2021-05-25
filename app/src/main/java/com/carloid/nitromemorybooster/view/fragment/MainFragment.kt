@@ -13,6 +13,8 @@ import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import com.carloid.nitromemorybooster.R
 import com.carloid.nitromemorybooster.databinding.FragmentMainBinding
 import com.carloid.nitromemorybooster.util.KotlinUtil.Companion.listDirObjects
@@ -62,7 +64,7 @@ class MainFragment : Fragment() {
         progressAnim.start()
 
         binding!!.cleanBtn.setOnClickListener {
-            Log.d("TEST", "Click")
+            gotoClearUnusedFiles()
         }
 
         Handler(Looper.getMainLooper()).postDelayed({
@@ -105,6 +107,18 @@ class MainFragment : Fragment() {
         }, 500)
     }
 
+    private fun gotoClearUnusedFiles() {
+        val unusedFilesFragment = UnusedFilesFragment()
+
+        val fragmentManager: FragmentManager = activity!!.supportFragmentManager
+        val transaction = fragmentManager.beginTransaction()
+        transaction.addToBackStack("mainFragment")
+
+        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+        transaction.replace(R.id.main_fragment_area, unusedFilesFragment)
+        transaction.commit()
+    }
+
     private val usableMemory: Float
         get() = U.getPathTotalSpace(EXTERNAL_STORAGE_DIR)
 
@@ -120,7 +134,7 @@ class MainFragment : Fragment() {
 
     companion object {
         private const val PERMISSION_REQUEST = 10001
-        private val PERMISSION_LIST = arrayOf(permission.READ_EXTERNAL_STORAGE, permission.WRITE_EXTERNAL_STORAGE)
         private const val EXTERNAL_STORAGE_DIR = "/storage/emulated/0"
+        private val PERMISSION_LIST = arrayOf(permission.READ_EXTERNAL_STORAGE, permission.WRITE_EXTERNAL_STORAGE)
     }
 }

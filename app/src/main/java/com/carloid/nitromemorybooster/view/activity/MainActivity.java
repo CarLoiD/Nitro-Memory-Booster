@@ -27,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-
         int count = getSupportFragmentManager().getBackStackEntryCount();
 
         if (count == 0) {
@@ -36,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
         } else {
             getSupportFragmentManager().popBackStack();
         }
-
     }
 
     private void showMainFragment() {

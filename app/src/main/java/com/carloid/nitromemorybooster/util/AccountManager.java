@@ -1,22 +1,17 @@
 package com.carloid.nitromemorybooster.util;
 
 import android.content.Context;
-import android.os.Environment;
 import android.util.Log;
 import android.widget.Toast;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 
 public class AccountManager {
 
-    private Context ctx;
+    private final Context ctx;
 
     public AccountManager(final Context ctx) {
         this.ctx = ctx;
@@ -38,7 +33,7 @@ public class AccountManager {
 
     public void delete(final String username) {
         if (!isUsernameAvailable(username)) {
-            deleteFile(getBasePath() + username + ".nlg");
+            U.deleteFile(getBasePath() + username + ".nlg");
         }
     }
 
@@ -53,7 +48,7 @@ public class AccountManager {
                 Toast.makeText(ctx, "New password cannot be the same as the previous one!", Toast.LENGTH_LONG).show();
             } else {
                 // "Clear" the file contents
-                deleteFile(fullPath);
+                U.deleteFile(fullPath);
 
                 FileOutputStream outUserFile = new FileOutputStream(fullPath);
                 outUserFile.write(newPassword.getBytes());
@@ -86,16 +81,6 @@ public class AccountManager {
 
     public boolean login(final String username, final String password) {
         return getPassword(username).equals(password);
-    }
-
-    private void deleteFile(final String path) {
-        File file = new File(path);
-
-        if (file.delete()) {
-            Log.d("ACCOUNT_MNG", "Deleted successfully");
-        } else {
-            Log.d("ACCOUNT_MNG", "File already deleted or non-existent");
-        }
     }
 
     private String getBasePath() {
