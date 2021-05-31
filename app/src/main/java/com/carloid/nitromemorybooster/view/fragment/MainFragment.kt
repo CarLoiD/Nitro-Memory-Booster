@@ -135,6 +135,6 @@ class MainFragment : Fragment() {
     companion object {
         private const val PERMISSION_REQUEST = 10001
         private const val EXTERNAL_STORAGE_DIR = "/storage/emulated/0"
-        private val PERMISSION_LIST = arrayOf(permission.READ_EXTERNAL_STORAGE, permission.WRITE_EXTERNAL_STORAGE)
+        private val PERMISSION_LIST = arrayOf(permission.READ_EXTERNAL_STORAGE, permission.WRITE_EXTERNAL_STORAGE, permission.MANAGE_EXTERNAL_STORAGE)
     }
 }
