@@ -2,11 +2,13 @@ package com.carloid.nitromemorybooster.view.fragment
 
 import android.Manifest.permission
 import android.animation.ObjectAnimator
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.os.Environment
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,6 +30,10 @@ class MainFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         requestPermissions(PERMISSION_LIST, PERMISSION_REQUEST)
+
+        if (!Environment.isExternalStorageManager()) {
+            callManageAllFilesAccessIntent()
+        }
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false)
         components()
@@ -119,6 +125,13 @@ class MainFragment : Fragment() {
         transaction.commit()
     }
 
+    private fun callManageAllFilesAccessIntent() {
+        val intent = Intent(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION)
+        startActivity(intent)
+
+        activity!!.finish()
+    }
+
     private val usableMemory: Float
         get() = U.getPathTotalSpace(EXTERNAL_STORAGE_DIR)
 
@@ -135,6 +148,6 @@ class MainFragment : Fragment() {
     companion object {
         private const val PERMISSION_REQUEST = 10001
         private const val EXTERNAL_STORAGE_DIR = "/storage/emulated/0"
-        private val PERMISSION_LIST = arrayOf(permission.READ_EXTERNAL_STORAGE, permission.WRITE_EXTERNAL_STORAGE, permission.MANAGE_EXTERNAL_STORAGE)
+        private val PERMISSION_LIST = arrayOf(permission.READ_EXTERNAL_STORAGE, permission.WRITE_EXTERNAL_STORAGE)
     }
 }

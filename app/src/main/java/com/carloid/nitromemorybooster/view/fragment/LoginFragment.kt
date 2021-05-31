@@ -27,7 +27,7 @@ class LoginFragment : Fragment() {
     fun components() {
         manager = AccountManager(context)
 
-        gotoMainFragment()
+//        gotoMainFragment()
 
         binding!!.btnLogin.setOnClickListener {
             manager?.let {
